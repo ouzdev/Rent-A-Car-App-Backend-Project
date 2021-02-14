@@ -12,14 +12,24 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        public CarManager(ICarDal carDal)
+        IBrandDal _brandDal;
+        public CarManager(ICarDal carDal, IBrandDal brandDal)
         {
             _carDal = carDal;
+            _brandDal = brandDal;
         }
         public IResult Add(Car car)
         {
-            _carDal.Add(car);
-            return new SuccessResult(Messages.CarAdded);
+            if (car.DailyPrice > 0 && car.Description.Length > 2)
+            {
+                _carDal.Add(car);
+                return new SuccessResult(Messages.CarAdded);
+            }
+            else
+            {
+                return new ErrorResult(Messages.FailedCarAdded);
+            }
+
         }
 
         public IResult Delete(Car car)
