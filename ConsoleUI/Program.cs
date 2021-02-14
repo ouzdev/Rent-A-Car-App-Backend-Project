@@ -16,24 +16,49 @@ namespace ConsoleUI
 
 
             //-------------------- Get By Id --------------------------
-          
+
             //GetById(carManager);
 
 
             //--------------------- Add  ------------------------------
-           
+
 
             //CarAdd(carManager);
 
 
             //----------------------- Delete --------------------------
-            
-            
+
+
             //CarDeleted(carManager);
 
             //---------------------- Update ---------------------------
 
             //CarUpdated(carManager,3);
+
+            //---------------------- GetCarsByBrandId -----------------
+            GetCarsByBrandId(carManager, 2);
+
+            //---------------------- GetCarsByColorId -----------------
+
+            GetCarsByColorId(carManager,3);
+        }
+
+        private static void GetCarsByColorId(CarManager carManager,int id)
+        {
+            Console.WriteLine(carManager.GetCarsByBrandId(id).Message);
+            foreach (var item in carManager.GetCarsByBrandId(id).Data)
+            {
+                Console.WriteLine(item.Description);
+            }
+        }
+
+        private static void GetCarsByBrandId(CarManager carManager,int id)
+        {
+            Console.WriteLine(carManager.GetCarsByBrandId(id).Message);
+            foreach (var item in carManager.GetCarsByBrandId(id).Data)
+            {
+                Console.WriteLine(item.Description);
+            }
         }
 
         private static void CarUpdated(CarManager carManager,int id)
