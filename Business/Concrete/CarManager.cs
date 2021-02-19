@@ -3,6 +3,7 @@ using Business.Constants;
 using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,11 +13,9 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        IBrandDal _brandDal;
-        public CarManager(ICarDal carDal, IBrandDal brandDal)
+        public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
-            _brandDal = brandDal;
         }
         public IResult Add(Car car)
         {
@@ -41,7 +40,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetAll()
         {
             var result = _carDal.GetAll();
-            return new SuccessDataResult<List<Car>>(result);
+            return new SuccessDataResult<List<Car>>(result,Messages.CarListed);
         }
 
         public IDataResult<Car> GetById(int id)
@@ -49,16 +48,22 @@ namespace Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id));
         }
 
+        public IDataResult<List<CarDetailsDTO>> GetCarDetails()
+        {
+            var result = _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailsDTO>>(result,Messages.GetCarDetails);
+        }
+
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             var result = _carDal.GetAll(c => c.BrandId == id);
-            return new SuccessDataResult<List<Car>>(result);
+            return new SuccessDataResult<List<Car>>(result,Messages.GetCarsBrandId);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             var result = _carDal.GetAll(c => c.ColorId == id);
-            return new SuccessDataResult<List<Car>>(result);
+            return new SuccessDataResult<List<Car>>(result,Messages.GetCarsColorId);
         }
 
         public IResult Update(Car car)
