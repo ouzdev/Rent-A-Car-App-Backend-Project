@@ -5,27 +5,172 @@ using System;
 
 namespace ConsoleUI
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
+
+        }
+        public static void ColorUpdate()
+        {
             ColorManager colorManager = new ColorManager(new EfColorDal());
+            ColorGetAll();
+            Console.WriteLine("Lütfen değiştirmek istediğiniz markanın ID değerini giriniz.");
+            var colorId = int.Parse(Console.ReadLine());
 
+            Color color = colorManager.GetById(colorId).Data;
+            Console.WriteLine("Lütfen yeni rengi tuşlayınız");
+            var colorName = Console.ReadLine();
+            color.Name = colorName;
+            Console.WriteLine(colorManager.Update(color).Message);
+        }
 
-            //------------------- Get All -----------------------------
-            //GetAll(carManager);
+        public static void ColorDelete()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            ColorGetAll();
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("Silmek istediğiniz rengin ID değerini tuşlayınız.");
+            int colorId = int.Parse(Console.ReadLine());
+            Console.Write(colorManager.Delete(new Color { Id = colorId }).Message);
+        }
 
+        public static void ColorAdd()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            Color color = new Color();
+            Console.WriteLine("Lütfen eklemek istediğiniz rengi tuşlayınız");
+            var colorName = Console.ReadLine();
+            color.Name = colorName;
+            Console.WriteLine(colorManager.Add(color).Message);
+        }
 
-            //-------------------- Get By Id --------------------------
+        public static void ColorGetById()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            Console.WriteLine("Lütfen Rengin ID değerini yazınız.");
+            var colorId = int.Parse(Console.ReadLine());
+            Console.WriteLine(colorManager.GetById(colorId).Data.Name);
+        }
 
-            GetById(carManager, 2);
+        public static void ColorGetAll()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            foreach (var item in colorManager.GetAll().Data)
+            {
+                Console.WriteLine(item.Id + "---" + item.Name);
+            }
+        }
+        public static void BrandUpdate()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            BrandGetAll();
+            Console.WriteLine("Lütfen değiştirmek istediğiniz markanın ID değerini giriniz.");
+            var brandId = int.Parse(Console.ReadLine());
 
+            Brand brand = brandManager.GetById(brandId).Data;
+            Console.WriteLine("Lütfen yeni markayı tuşlayınız");
+            var brandName = Console.ReadLine();
+            brand.Name = brandName;
+            Console.WriteLine(brandManager.Update(brand).Message);
+        }
 
-            //--------------------- Add  ------------------------------
-            BrandGetAll(brandManager);
+        public static void BrandDelete()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            BrandGetAll();
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("Silmek istediğiniz markının ID değerini tuşlayınız.");
+            int brandId = int.Parse(Console.ReadLine());
+            Console.Write(brandManager.Delete(new Brand { Id = brandId }).Message);
+        }
 
+        public static void BrandAdd()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            Brand brand = new Brand();
+            Console.WriteLine("Lütfen eklemek istediğiniz markayı tuşlayınız");
+            var brandName = Console.ReadLine();
+            brand.Name = brandName;
+            Console.WriteLine(brandManager.Add(brand).Message);
+        }
+
+        public static void BrandGetById()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            Console.WriteLine("Lütfen Marka ID değerini yazınız.");
+            var brandId = int.Parse(Console.ReadLine());
+            Console.WriteLine(brandManager.GetById(brandId).Data.Name);
+        }
+
+        public static void BrandGetAll()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            foreach (var item in brandManager.GetAll().Data)
+            {
+                Console.WriteLine(item.Id + "---" + item.Name);
+            }
+        }
+
+        public static void GetCarsByColorId()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine("Lütfen Araç Renk ID değerini tuşlayınız.");
+            var colorId = int.Parse(Console.ReadLine());
+            Console.WriteLine(carManager.GetCarsByBrandId(colorId).Message);
+            foreach (var item in carManager.GetCarsByBrandId(colorId).Data)
+            {
+                Console.WriteLine(item.Description);
+            }
+        }
+
+        public static void GetCarsByBrandId()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine("Lütfen Araba Renk ID değerini tuşlayınız.");
+            var brandId = int.Parse(Console.ReadLine());
+            Console.WriteLine(carManager.GetCarsByBrandId(brandId).Message);
+            foreach (var item in carManager.GetCarsByBrandId(brandId).Data)
+            {
+                Console.WriteLine(item.Id + "---" + item.Name + "---" + item.DailyPrice + "---" + item.Description);
+            }
+        }
+
+        public static void CarUpdated()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            CarGetAll();
+            Console.WriteLine("Güncellemek İstediğiniz Aracın ID değerini tuşlayınız.");
+            var carId = int.Parse(Console.ReadLine());
+            var carUpdated = carManager.GetById(carId);
+            Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Adını Giriniz.");
+            carUpdated.Data.Name = Console.ReadLine();
+            Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Marka ID değerini Giriniz.");
+            carUpdated.Data.BrandId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Renk ID değerini Giriniz.");
+            carUpdated.Data.ColorId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Açıklamasını Giriniz.");
+            carUpdated.Data.Description = Console.ReadLine();
+            Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Günlük Kiralama Ücretini Giriniz.");
+            carUpdated.Data.DailyPrice = decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Modelini Sayısal Olarak Giriniz.");
+            carUpdated.Data.ModelYear = int.Parse(Console.ReadLine());
+            var result = carManager.Update(carUpdated.Data);
+            Console.WriteLine(result.Message);
+        }
+
+        public static void CarDeleted()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine("Hangi Id e Sahip Aracı Silmek İstiyorsunuz ?");
+            int carId = Convert.ToInt32(Console.ReadLine());
+            var result = carManager.Delete(new Car { Id = carId });
+            Console.WriteLine(result.Message);
+        }
+
+        public static void CarAdd()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
             Car car = new Car();
             Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Adını Giriniz.");
             car.Name = Console.ReadLine();
@@ -35,162 +180,44 @@ namespace ConsoleUI
             car.ColorId = int.Parse(Console.ReadLine());
             Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Açıklamasını Giriniz.");
             car.Description = Console.ReadLine();
-            Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Açıklamasını Giriniz.");
+            Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Günlük Kiralama Ücretini Giriniz.");
             car.DailyPrice = decimal.Parse(Console.ReadLine());
             Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Modelini Sayısal Olarak Giriniz.");
             car.ModelYear = int.Parse(Console.ReadLine());
-            CarAdd(carManager,car);
-
-
-            //----------------------- Delete --------------------------
-
-
-            //CarDeleted(carManager);
-
-            //---------------------- Update ---------------------------
-
-            //CarUpdated(carManager,3);
-
-            //---------------------- GetCarsByBrandId -----------------
-            //GetCarsByBrandId(carManager, 2);
-
-            //---------------------- GetCarsByColorId -----------------
-
-            //GetCarsByColorId(carManager,3);
-
-            //--------------------BRAND CRUD OPERATİON ----------------
-
-
-            //-------------------Get All---------------------------- -
-
-            //BrandGetAll(brandManager);
-
-            //--------------------Get By Id --------------------------
-
-            //BrandGetById(brandManager, 1);
-
-            //---------------------Add------------------------------
-
-            //BrandAdd(brandManager, new Brand { Name = "Scania" });
-
-
-            //-----------------------Delete--------------------------
-            //BrandDelete(brandManager);
-
-            //----------------------Update-------------------------- -
-            //BrandUpdate(brandManager,10);
-
-            //--------------------Color CRUD OPERATİON ----------------
-
-            //ColorManager colorManager = new ColorManager(new EfColorDal());
-
-            //-------------------Get All---------------------------- -
-
-            //BrandGetAll(brandManager);
-
-            //--------------------Get By Id --------------------------
-
-            //BrandGetById(brandManager, 1);
-
-            //---------------------Add------------------------------
-
-            //BrandAdd(brandManager, new Brand { Name = "Scania" });
-
-
-            //-----------------------Delete--------------------------
-            //BrandDelete(brandManager);
-
-            //----------------------Update-------------------------- -
-            //BrandUpdate(brandManager,10);
-
-        }
-
-        private static void BrandUpdate(BrandManager brandManager, int id)
-        {
-            Brand brand = brandManager.GetById(id).Data;
-            brand.Name = "Mazda Motors";
-            Console.WriteLine(brandManager.Update(brand).Message);
-        }
-
-        private static void BrandDelete(BrandManager brandManager)
-        {
-            BrandGetAll(brandManager);
-            Console.WriteLine("------------------------------------------");
-            Console.WriteLine("Silmek istediğiniz markının ID değerini tuşlayınız.");
-            int brandId = int.Parse(Console.ReadLine());
-            Console.Write(brandManager.Delete(new Brand { Id = brandId }).Message);
-        }
-
-        private static void BrandAdd(BrandManager brandManager, Brand brand)
-        {
-            Console.WriteLine(brandManager.Add(brand).Message);
-        }
-
-        private static void BrandGetById(BrandManager brandManager, int id)
-        {
-            Console.WriteLine(brandManager.GetById(id).Data.Name);
-        }
-
-        private static void BrandGetAll(BrandManager brandManager)
-        {
-            foreach (var item in brandManager.GetAll().Data)
-            {
-                Console.WriteLine(item.Id + "---" + item.Name);
-            }
-        }
-
-        private static void GetCarsByColorId(CarManager carManager, int id)
-        {
-            Console.WriteLine(carManager.GetCarsByBrandId(id).Message);
-            foreach (var item in carManager.GetCarsByBrandId(id).Data)
-            {
-                Console.WriteLine(item.Description);
-            }
-        }
-
-        private static void GetCarsByBrandId(CarManager carManager, int id)
-        {
-            Console.WriteLine(carManager.GetCarsByBrandId(id).Message);
-            foreach (var item in carManager.GetCarsByBrandId(id).Data)
-            {
-                Console.WriteLine(item.Description);
-            }
-        }
-
-        private static void CarUpdated(CarManager carManager, Car car)
-        {
-            car = carManager.GetById(car.Id).Data;
-            var result = carManager.Update(car);
-            Console.WriteLine(result.Message);
-        }
-
-        private static void CarDeleted(CarManager carManager)
-        {
-            Console.WriteLine("Hangi Id e Sahip Aracı Silmek İstiyorsunuz ?");
-            int carId = Convert.ToInt32(Console.ReadLine());
-            var result = carManager.Delete(new Car { Id = carId });
-            Console.WriteLine(result.Message);
-        }
-
-        private static void CarAdd(CarManager carManager, Car car)
-        {
             var result = carManager.Add(car);
             Console.WriteLine(result.Message, result.Success);
         }
 
-        private static void GetById(CarManager carManager, int id)
+        public static void CarGetById()
         {
-            var getById = carManager.GetById(id);
+            CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine("Lütfen Araba ID değerini giriniz.");
+            var carId = int.Parse(Console.ReadLine());
+            var getById = carManager.GetById(carId);
             Console.WriteLine(getById.Data.Name);
         }
 
-        private static void GetAll(CarManager carManager)
+        public static void CarGetAll()
         {
+            CarManager carManager = new CarManager(new EfCarDal());
             var getAll = carManager.GetAll();
             foreach (var item in getAll.Data)
             {
                 Console.WriteLine(item.ModelYear);
             }
         }
+
+        public static void ListCarDetail()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            var getAll = carManager.GetCarDetails();
+
+            foreach (var item in getAll.Data)
+            {
+                Console.WriteLine(item.CarName + "---" + item.BrandName + "---" + item.ColorName + "---" + item.DailyPrice);
+            }
+
+        }
+
     }
 }
