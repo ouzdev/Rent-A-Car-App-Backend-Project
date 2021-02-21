@@ -26,5 +26,18 @@
         public static string CustomerDeleted = "Müşteri Silindi.";
         public static string CustomerListed = "Müşteri Listelendi.";
         public static string CustomerUpdated = "Müşteri Güncellendi.";
+
+        public static string RentalAdded = "Araç Kiralandı.";
+        public static string RentalDeleted = "Kiralama İptal Edildi.";
+        public static string RentalCarAvailable = "Araç Kiralamaya Musaittir.";
+        public static string RentalCarNotAvailable = "Araç Kiralamaya Musait Değildir.";
+        public static string RentalListed = "Kiralanan Araçlar Listelendi.";
+        public static string RentalUpdated = "Kiralanan Araç Güncellendi.";
+        public static string GetListRentalDetail = "Kiralama İle Alakalı Detaylı Bilgiler Listelendi";
+
+        public static string UserAdded = "Kullanıcı Eklendi.";
+        public static string UserDeleted = "Kullanıcı Silindi.";
+        public static string UserListed = "Kullanıcı Listelendi.";
+        public static string UserUpdated = "Kullanıcı Güncellendi.";
     }
 }

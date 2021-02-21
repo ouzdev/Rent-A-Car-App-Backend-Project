@@ -1,37 +1,71 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Result;
+using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
+using Entities.DTOs.RentalDTOs;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
+        IRentalDal _rentalDal;
+        public RentalManager(IRentalDal rentalDal)
+        {
+            _rentalDal = rentalDal;
+        }
         public IResult Add(Rental rental)
         {
-            throw new NotImplementedException();
+            if (IsCarAvailable(rental.CarId).Success)
+            {
+                _rentalDal.Add(rental);
+                return new SuccessResult(Messages.RentalAdded);
+            }
+            return new ErrorResult(Messages.RentalCarNotAvailable);
+
         }
 
         public IResult Delete(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentalDal.Delete(rental);
+            return new SuccessResult(Messages.RentalDeleted);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _rentalDal.GetAll();
+            return new SuccessDataResult<List<Rental>>(result, Messages.RentalListed);
         }
 
         public IDataResult<Rental> GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = _rentalDal.Get(r => r.Id == id);
+            return new SuccessDataResult<Rental>(result, Messages.RentalListed);
+        }
+
+        public IDataResult<List<GetRentalDetailDTO>> GetListRentalDetails()
+        {
+            var result = _rentalDal.GetRentalDetails();
+            return new SuccessDataResult<List<GetRentalDetailDTO>>(result, Messages.GetListRentalDetail);
+        }
+
+        public IResult IsCarAvailable(int id)
+        {
+            var result = _rentalDal.IsCarAvailable(id);
+            if (result)
+            {
+                return new SuccessResult(Messages.RentalCarAvailable);
+
+            }
+            return new ErrorResult(Messages.RentalCarNotAvailable);
+
         }
 
         public IResult Update(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentalDal.Update(rental);
+            return new SuccessResult(Messages.RentalUpdated);
         }
     }
 }

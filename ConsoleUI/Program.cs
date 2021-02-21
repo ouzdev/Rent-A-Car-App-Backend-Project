@@ -9,7 +9,59 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ListCarDetail();
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+        }
+        public static void RentUpdate()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            RentGetAll();
+            Console.WriteLine("Lütfen değiştirmek istediğiniz markanın ID değerini giriniz.");
+            var rentId = int.Parse(Console.ReadLine());
+
+            Rental rental = rentalManager.GetById(rentId).Data;
+            Console.WriteLine("Lütfen yeni teslim tarihini tuşlayınız");
+            var rentalReturnDate = DateTime.Parse(Console.ReadLine());
+            rental.ReturnDate = rentalReturnDate;
+            Console.WriteLine(rentalManager.Update(rental).Message);
+        }
+
+        public static void RentDelete()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            RentGetAll();
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("Silmek istediğiniz kayıtın ID değerini tuşlayınız.");
+            int rentId = int.Parse(Console.ReadLine());
+            Console.Write(rentalManager.Delete(new Rental { Id = rentId }).Message);
+        }
+
+        public static void RentAdd()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Rental rent = new Rental();
+            Console.WriteLine("Lütfen eklemek istediğiniz rengi tuşlayınız");
+            var colorName = Console.ReadLine();
+            color.Name = colorName;
+            Console.WriteLine(colorManager.Add(color).Message);
+        }
+
+        public static void RentGetById()
+        {
+            RentGetAll();
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Console.WriteLine("Lütfen Kiralanan kayıtın ID değerini yazınız.");
+            var rentId = int.Parse(Console.ReadLine());
+            Console.WriteLine(rentalManager.GetById(rentId).Data);
+        }
+
+        public static void RentGetAll()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            foreach (var item in rentalManager.GetListRentalDetails().Data)
+            {
+                Console.WriteLine(item.Id + "---" + item.CustomerName + "---" + item.CarName + "---" + item.RentDate + "---" + item.ReturnDate);
+            }
         }
         public static void ColorUpdate()
         {

@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Result;
 using Entities.Concrete;
+using Entities.DTOs.RentalDTOs;
 using System.Collections.Generic;
 
 namespace Business.Abstract
@@ -11,5 +12,7 @@ namespace Business.Abstract
         IResult Delete(Rental rental);
         IDataResult<Rental> GetById(int id);
         IDataResult<List<Rental>> GetAll();
+        IResult IsCarAvailable(int id);
+        IDataResult<List<GetRentalDetailDTO>> GetListRentalDetails();
     }
 }

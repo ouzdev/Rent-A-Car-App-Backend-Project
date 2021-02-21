@@ -1,37 +1,47 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Result;
+using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
+        IUserDal _userDal;
+        public UserManager(IUserDal userDal)
+        {
+            _userDal = userDal;
+        }
         public IResult Add(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Add(user);
+            return new SuccessResult(Messages.UserAdded);
         }
 
         public IResult Delete(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Delete(user);
+            return new SuccessResult(Messages.UserDeleted);
         }
 
         public IDataResult<List<User>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _userDal.GetAll();
+            return new SuccessDataResult<List<User>>(result, Messages.UserListed);
         }
 
         public IDataResult<User> GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = _userDal.Get(u => u.Id == id);
+            return new SuccessDataResult<User>(result, Messages.UserListed);
         }
 
         public IResult Update(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
         }
     }
 }
