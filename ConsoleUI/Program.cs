@@ -9,7 +9,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-
+            ListCarDetail();
         }
         public static void ColorUpdate()
         {
@@ -170,6 +170,12 @@ namespace ConsoleUI
 
         public static void CarAdd()
         {
+            Console.WriteLine("Not => Eklemek istediğiniz aracın rengi veya markası yoksa ilk o bilgileri siteme ekleyiniz.");
+            Console.WriteLine("------------------Renkler--------------------------");
+            ColorGetAll();
+            Console.WriteLine("------------------Markalar--------------------------");
+            BrandGetAll();
+
             CarManager carManager = new CarManager(new EfCarDal());
             Car car = new Car();
             Console.WriteLine("Lütfen Eklemek İstediğiniz Arabanın Adını Giriniz.");
@@ -203,7 +209,7 @@ namespace ConsoleUI
             var getAll = carManager.GetAll();
             foreach (var item in getAll.Data)
             {
-                Console.WriteLine(item.ModelYear);
+                Console.WriteLine(item.Name);
             }
         }
 
