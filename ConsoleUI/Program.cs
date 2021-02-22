@@ -9,7 +9,6 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
         }
         public static void RentUpdate()
@@ -40,10 +39,12 @@ namespace ConsoleUI
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             Rental rent = new Rental();
-            Console.WriteLine("Lütfen eklemek istediğiniz rengi tuşlayınız");
-            var colorName = Console.ReadLine();
-            color.Name = colorName;
-            Console.WriteLine(colorManager.Add(color).Message);
+            rent.CarId = 1;
+            rent.CustomerId = 1;
+            rent.RentDate = DateTime.Now;
+            rent.ReturnDate = DateTime.Now.AddDays(2);
+            Console.WriteLine(rentalManager.Add(rent).Message);
+
         }
 
         public static void RentGetById()
