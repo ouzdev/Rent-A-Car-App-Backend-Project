@@ -32,6 +32,7 @@
         public static string RentalCarAvailable = "Araç Kiralamaya Musaittir.";
         public static string RentalCarNotAvailable = "Araç Kiralamaya Musait Değildir.";
         public static string RentalListed = "Kiralanan Araçlar Listelendi.";
+        public static string RentListed = "Kiralanan Araç Listelendi.";
         public static string RentalUpdated = "Kiralanan Araç Güncellendi.";
         public static string GetListRentalDetail = "Kiralama İle Alakalı Detaylı Bilgiler Listelendi";
 

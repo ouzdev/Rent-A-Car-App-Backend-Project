@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Business.Abstract
 {
-    public interface IUserService
+    public interface IRentalService
     {
         IResult Add(Rental rental);
         IResult Update(Rental rental);
