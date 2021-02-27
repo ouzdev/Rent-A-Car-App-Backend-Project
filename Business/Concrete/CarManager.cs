@@ -1,12 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete
 {
@@ -17,17 +18,13 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
+
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0 && car.Description.Length > 2)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.CarAdded);
-            }
-            else
-            {
-                return new ErrorResult(Messages.FailedCarAdded);
-            }
+            ValidationTool.Validate(new CarValidator(), car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
 
         }
 
@@ -40,7 +37,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetAll()
         {
             var result = _carDal.GetAll();
-            return new SuccessDataResult<List<Car>>(result,Messages.CarListed);
+            return new SuccessDataResult<List<Car>>(result, Messages.CarListed);
         }
 
         public IDataResult<Car> GetById(int id)
@@ -51,19 +48,19 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailsDTO>> GetCarDetails()
         {
             var result = _carDal.GetCarDetails();
-            return new SuccessDataResult<List<CarDetailsDTO>>(result,Messages.GetCarDetails);
+            return new SuccessDataResult<List<CarDetailsDTO>>(result, Messages.GetCarDetails);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             var result = _carDal.GetAll(c => c.BrandId == id);
-            return new SuccessDataResult<List<Car>>(result,Messages.GetCarsBrandId);
+            return new SuccessDataResult<List<Car>>(result, Messages.GetCarsBrandId);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             var result = _carDal.GetAll(c => c.ColorId == id);
-            return new SuccessDataResult<List<Car>>(result,Messages.GetCarsColorId);
+            return new SuccessDataResult<List<Car>>(result, Messages.GetCarsColorId);
         }
 
         public IResult Update(Car car)
