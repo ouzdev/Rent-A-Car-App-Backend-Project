@@ -40,5 +40,12 @@
         public static string UserDeleted = "Kullanıcı Silindi.";
         public static string UserListed = "Kullanıcı Listelendi.";
         public static string UserUpdated = "Kullanıcı Güncellendi.";
+
+        public static string GetCarImageById = "ID Değerine Göre Araç Görseli Getirildi.";
+        public static string GetAllCarImage = "Tüm Araç Görselleri Getirildi.";
+        public static string AddCarImage = "Araç Görselleri Eklendi.";
+        public static string DeleteCarImage = "İlgili Araç Görseli Silindi.";
+        public static string UpdateCarImage = "İlgili Araç Görseli Güncellendi.";
+        public static string GetCarImageByCarId = "Araç ID Değerine Göre Araç Görselleri Getirildi.";
     }
 }
