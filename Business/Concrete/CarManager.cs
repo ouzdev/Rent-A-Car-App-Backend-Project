@@ -28,7 +28,6 @@ namespace Business.Concrete
 
         }
 
-        [ValidationAspect(typeof(CarValidator))]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
@@ -64,6 +63,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(result, Messages.GetCarsColorId);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
