@@ -1,2 +1,2 @@
-![enter image description here](https://cdn.turkaapp.com/images/rent-a-car-project-banner.png)
+![enter image description here](https://raw.githubusercontent.com/ouzdev/ReCapProject/master/rent-a-car-project-banner.png)
 ## Rent A Car Project
