@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPost("delete")]
-        public IActionResult Add(int id)
+        public IActionResult Delete(int id)
         {
             var result = _carImageService.Delete(new CarImage { Id = id });
             if (result.Success)
@@ -37,13 +37,12 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPost("update")]
-        public IActionResult Add([FromForm] UpdateCarImageDto carIamge)
+        public IActionResult Update([FromForm] UpdateCarImageDto carIamge)
         {
             var result = _carImageService.Update(carIamge);
             if (result.Success)
             {
                 return Ok(result.Message);
-
             }
             return BadRequest(result.Message);
         }

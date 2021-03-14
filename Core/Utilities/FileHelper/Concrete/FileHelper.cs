@@ -19,6 +19,13 @@ namespace Core.Utilities.FileHelper.Concrete
             return new SuccessDataResult<string>(result.Result, Messages.SuccessFileUpload);
         }
 
+        public IDataResult<string> UploadFileUpdate(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return new ErrorDataResult<string>(Messages.FileNotFound);
+            var result = WriteFile(file);
+            return new SuccessDataResult<string>(result.Result, Messages.SuccessFileUpload);
+        }
 
         public async Task<string> WriteFile(IFormFile file)
         {

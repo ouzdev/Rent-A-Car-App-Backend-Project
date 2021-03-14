@@ -47,5 +47,6 @@
         public static string DeleteCarImage = "İlgili Araç Görseli Silindi.";
         public static string UpdateCarImage = "İlgili Araç Görseli Güncellendi.";
         public static string GetCarImageByCarId = "Araç ID Değerine Göre Araç Görselleri Getirildi.";
+        public static string PictureLimitExceeded = "Resim Yükleme Limiti Aşıldı.";
     }
 }

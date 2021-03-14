@@ -54,6 +54,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             var result = _carDal.GetAll(c => c.BrandId == id);
+       
             return new SuccessDataResult<List<Car>>(result, Messages.GetCarsBrandId);
         }
 
