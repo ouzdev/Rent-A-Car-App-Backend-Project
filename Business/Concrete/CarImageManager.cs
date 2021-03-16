@@ -66,8 +66,8 @@ namespace Business.Concrete
 
         public IDataResult<CarImage> GetById(int id)
         {
-            var result = _carImageDal.Get(p => p.Id == id);
-            return new SuccessDataResult<CarImage>(result, Messages.GetCarImageById);
+            var result = CheckIfCarImageNull(id);
+            return new SuccessDataResult<CarImage>(result.Data.FirstOrDefault(), Messages.GetCarImageById);
         }
 
         public IDataResult<List<CarImage>> GetImageByCarId(int id)
@@ -94,7 +94,7 @@ namespace Business.Concrete
             return new ErrorResult(fileOperation.Message);
         }
 
-        private IDataResult<List<CarImage>> CheckIfCarImageNull(int? id)
+        private IDataResult<List<CarImage>> CheckIfCarImageNull(int id)
         {
 
             string path = @"\wwwroot\images\placeholder.png";
