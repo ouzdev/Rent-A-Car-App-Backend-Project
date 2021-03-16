@@ -72,8 +72,8 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetImageByCarId(int id)
         {
-            var result = _carImageDal.GetAll(p => p.CarId == id);
-            return new SuccessDataResult<List<CarImage>>(result, Messages.GetCarImageByCarId);
+            var result = CheckIfCarImageNull(id);
+            return new SuccessDataResult<List<CarImage>>(result.Data, Messages.GetCarImageByCarId);
         }
 
         public IResult Update(UpdateCarImageDto carImageDto)
