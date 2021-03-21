@@ -24,4 +24,9 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utilities\Security\Encryption\" />
+    <Folder Include="Utilities\Security\JWT\" />
+  </ItemGroup>
+
 </Project>
