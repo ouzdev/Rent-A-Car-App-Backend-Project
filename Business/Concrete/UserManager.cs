@@ -5,7 +5,6 @@ using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Result;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using System.Collections.Generic;
 
 namespace Business.Concrete
@@ -41,6 +40,19 @@ namespace Business.Concrete
         {
             var result = _userDal.Get(u => u.Id == id);
             return new SuccessDataResult<User>(result, Messages.UserListed);
+        }
+
+        public IDataResult<User> GetByMail(string mail)
+        {
+            var result = _userDal.Get(p => p.Email == mail);
+          
+            return new SuccessDataResult<User>(result, Messages.SuccessGetByMail);
+        }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            var result = _userDal.GetClaims(user);
+            return new SuccessDataResult<List<OperationClaim>>(result,Messages.SuccessGetClaims);
         }
 
         [ValidationAspect(typeof(UserValidator))]

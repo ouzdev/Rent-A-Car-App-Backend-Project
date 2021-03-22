@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -18,7 +19,7 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-
+        [SecuredOperation("product.add")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -53,7 +54,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             var result = _carDal.GetAll(c => c.BrandId == id);
-       
+
             return new SuccessDataResult<List<Car>>(result, Messages.GetCarsBrandId);
         }
 

@@ -1,4 +1,6 @@
-﻿namespace Business.Constants
+﻿using Core.Entities.Concrete;
+
+namespace Business.Constants
 {
     public static class Messages
     {
@@ -49,5 +51,13 @@
         public static string GetCarImageByCarId = "Araç ID Değerine Göre Araç Görselleri Getirildi.";
         public static string PictureLimitExceeded = "Resim Yükleme Limiti Aşıldı.";
         public static string AuthorizationDenied = "Yetki Hatası";
+        internal static string UserRegistered;
+        internal static User UserNotFound;
+        internal static string UserAlreadyExists;
+        internal static string AccessTokenCreated;
+        internal static User PasswordError;
+        internal static string SuccessfulLogin;
+        internal static string SuccessGetByMail;
+        internal static string SuccessGetClaims;
     }
 }
