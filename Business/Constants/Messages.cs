@@ -48,5 +48,6 @@
         public static string UpdateCarImage = "İlgili Araç Görseli Güncellendi.";
         public static string GetCarImageByCarId = "Araç ID Değerine Göre Araç Görselleri Getirildi.";
         public static string PictureLimitExceeded = "Resim Yükleme Limiti Aşıldı.";
+        public static string AuthorizationDenied = "Yetki Hatası";
     }
 }
