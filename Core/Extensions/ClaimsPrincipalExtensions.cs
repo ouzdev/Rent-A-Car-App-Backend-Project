@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace Core.Extensions
 {
-    public static class ClaimsPrincipalExtensionsThe ClaimExtensin was created inside Extension folder ✔
+    public static class ClaimsPrincipalExtensions
     {
         // JWT ile gelen kişinin claimlerine ulaşmak için kullanılan extensiondır.
         public static List<string> Claims(this ClaimsPrincipal claimsPrincipal, string claimType)
