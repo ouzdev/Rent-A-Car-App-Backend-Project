@@ -2,10 +2,12 @@
 using Castle.DynamicProxy;
 using Core.Extensions;
 using Core.Utilities.Interceptors;
+using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Business.BusinessAspects.Autofac
 {
