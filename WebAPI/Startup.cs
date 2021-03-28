@@ -47,6 +47,7 @@ namespace WebAPI
 
             //Core katmanında ki IhttpContextAccessor u Core Module içinde oluşturduktan sonra daha merkezi bir yapıda projeye uyguladık.
             //Buradaki asıl amaç proje içinde standart olan bağımlılıkları Core katmında IServiceCollection sınıfı genişleterek bir Module yazdık ve projeye uyguladık.
+
             services.AddDependencyResolvers(new ICoreModule[] { new CoreModule() });
         }
 
