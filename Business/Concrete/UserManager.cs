@@ -11,7 +11,7 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        IUserDal _userDal;
+        private readonly IUserDal _userDal;
         public UserManager(IUserDal userDal)
         {
             _userDal = userDal;
@@ -44,19 +44,20 @@ namespace Business.Concrete
 
         public IDataResult<User> GetByMail(string mail)
         {
-            var result = _userDal.Get(p => p.Email.ToLower() == mail.ToLower());
-            if (result == null)
+            User user = _userDal.Get(p => p.Email == mail);
+            if (user == null)
             {
-                return new ErrorDataResult<User>(Messages.ErrorGetByUserMail);
+                return new ErrorDataResult<User>(user, Messages.ErrorGetByUserMail);
             }
-
-            return new SuccessDataResult<User>(result, Messages.SuccessGetByUserMail);
+            else
+            {
+                return new SuccessDataResult<User>(user, Messages.SuccessGetByUserMail);
+            }
         }
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            var result = _userDal.GetClaims(user);
-            return new SuccessDataResult<List<OperationClaim>>(result, Messages.SuccessGetUserClaims);
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
 
         [ValidationAspect(typeof(UserValidator))]
