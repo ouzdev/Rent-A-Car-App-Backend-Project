@@ -1,6 +1,4 @@
-﻿using Core.Entities.Concrete;
-
-namespace Business.Constants
+﻿namespace Business.Constants
 {
     public static class Messages
     {
@@ -51,13 +49,14 @@ namespace Business.Constants
         public static string GetCarImageByCarId = "Araç ID Değerine Göre Araç Görselleri Getirildi.";
         public static string PictureLimitExceeded = "Resim Yükleme Limiti Aşıldı.";
         public static string AuthorizationDenied = "Yetki Hatası";
-        internal static string UserRegistered;
-        internal static User UserNotFound;
-        internal static string UserAlreadyExists;
-        internal static string AccessTokenCreated;
-        internal static User PasswordError;
-        internal static string SuccessfulLogin;
-        internal static string SuccessGetByMail;
-        internal static string SuccessGetClaims;
+        public static string UserRegistered = "Kullanıcı Kaydı Tamamlandı";
+        public static string UserNotFound = "Kullanıcı Bulunamadı";
+        public static string UserAlreadyExists = "Kullanıcı Zaten Mevcut";
+        public static string AccessTokenCreated = "Access Token Oluşturuldu.";
+        public static string PasswordError = "Şifre Hatalı";
+        public static string SuccessfulLogin = "Giriş Başarılı";
+        public static string SuccessGetByUserMail = "Kullanıcının Mail Adresi Başarıyla Sorgulandı.";
+        public static string SuccessGetUserClaims = "Kullanıcının Claimleri Başarıyla Sorgulandı.";
+        public static string ErrorGetByUserMail = "Sistemde Bu Kullanıcıya Ait Mail Adresi Bulunamamaktadır.";
     }
 }

@@ -42,12 +42,12 @@ namespace Business.Concrete
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
             if (userToCheck == null)
             {
-                return new ErrorDataResult<User>(Messages.UserNotFound);
+                return new ErrorDataResult<User>(userToCheck.Data, Messages.UserNotFound);
             }
 
             if (!HashingHelper.VerifyPassowrdHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
             {
-                return new ErrorDataResult<User>(Messages.PasswordError);
+                return new ErrorDataResult<User>(userToCheck.Data, Messages.PasswordError);
             }
 
             return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessfulLogin);
