@@ -1,10 +1,12 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.FileHelper.Abstract;
 using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs.CarImageDTOs;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +26,14 @@ namespace Business.Concrete
 
         public IResult Add(AddCarImageDto carImageDto)
         {
-            if (CheckImageCount(carImageDto.CarId).Success)
+            IResult result = BusinessRules.Run(CheckImageCount(carImageDto.CarId));
+            if (result != null)
             {
-                var imagePath = _fileHelper.UploadFile(carImageDto.File);
+                return result;
+            }
+            else
+            {
+                var imagePath = UploadImage(carImageDto.File);
                 if (imagePath.Success)
                 {
                     CarImage carImage = new CarImage
@@ -46,7 +53,7 @@ namespace Business.Concrete
             var result = _carImageDal.GetAll(p => p.CarId == id);
             if (result.Count > 5)
             {
-                return new ErrorResult();
+                return new ErrorResult(Messages.PictureLimitExceeded);
             }
             return new SuccessResult();
         }
@@ -92,6 +99,11 @@ namespace Business.Concrete
                 return new SuccessResult(Messages.UpdateCarImage);
             }
             return new ErrorResult(fileOperation.Message);
+        }
+
+        public IDataResult<string> UploadImage(IFormFile File)
+        {
+            return _fileHelper.UploadFile(File);
         }
 
         private IDataResult<List<CarImage>> CheckIfCarImageNull(int id)

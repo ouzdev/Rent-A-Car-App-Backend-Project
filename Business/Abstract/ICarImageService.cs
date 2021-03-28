@@ -1,6 +1,7 @@
 ﻿using Core.Utilities.Result;
 using Entities.Concrete;
 using Entities.DTOs.CarImageDTOs;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 namespace Business.Abstract
@@ -14,5 +15,6 @@ namespace Business.Abstract
         IDataResult<List<CarImage>> GetAll();
         IDataResult<List<CarImage>> GetImageByCarId(int id);
         IResult CheckImageCount(int id);
+        IDataResult<string> UploadImage(IFormFile File);
     }
 }
