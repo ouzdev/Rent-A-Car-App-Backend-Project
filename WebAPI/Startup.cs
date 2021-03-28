@@ -1,10 +1,11 @@
+﻿using Core.DependencyResolvers;
+using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -43,8 +44,10 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            ServiceTool.Create(services);
+
+            //Core katmanında ki IhttpContextAccessor u Core Module içinde oluşturduktan sonra daha merkezi bir yapıda projeye uyguladık.
+            //Buradaki asıl amaç proje içinde standart olan bağımlılıkları Core katmında IServiceCollection sınıfı genişleterek bir Module yazdık ve projeye uyguladık.
+            services.AddDependencyResolvers(new ICoreModule[] { new CoreModule() });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
