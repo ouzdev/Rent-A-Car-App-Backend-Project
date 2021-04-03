@@ -70,10 +70,8 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         [PerformanceAspect(0)]
-
         public IResult Add(Car car)
         {
-            ValidationTool.Validate(new CarValidator(), car);
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
