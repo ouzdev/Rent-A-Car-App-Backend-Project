@@ -1,5 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.FileHelper.Abstract;
 using Core.Utilities.Result;
@@ -24,6 +28,51 @@ namespace Business.Concrete
 
         }
 
+        public IResult CheckImageCount(int id)
+        {
+            var result = _carImageDal.GetAll(p => p.CarId == id);
+            if (result.Count > 5)
+            {
+                return new ErrorResult(Messages.PictureLimitExceeded);
+            }
+            return new SuccessResult();
+        }
+
+        public IDataResult<List<CarImage>> GetAll()
+        {
+            var result = _carImageDal.GetAll();
+            return new SuccessDataResult<List<CarImage>>(result, Messages.GetAllCarImage);
+        }
+
+        public IDataResult<CarImage> GetById(int id)
+        {
+            var result = CheckIfCarImageNull(id);
+            return new SuccessDataResult<CarImage>(result.Data.FirstOrDefault(), Messages.GetCarImageById);
+        }
+
+        public IDataResult<List<CarImage>> GetImageByCarId(int id)
+        {
+            var result = CheckIfCarImageNull(id);
+            return new SuccessDataResult<List<CarImage>>(result.Data, Messages.GetCarImageByCarId);
+        }
+
+        private IDataResult<List<CarImage>> CheckIfCarImageNull(int id)
+        {
+
+            string path = @"\wwwroot\images\placeholder.png";
+            var result = _carImageDal.GetAll(p => p.CarId == id).Any();
+            if (!result)
+            {
+                List<CarImage> carImage = new List<CarImage>();
+                carImage.Add(new CarImage { CarId = id, ImagePath = path, Date = DateTime.Now });
+                return new SuccessDataResult<List<CarImage>>(carImage);
+            }
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == id));
+        }
+
+        [ValidationAspect(typeof(CarImageValidator))]
+        [SecuredOperation("carImage.add,administrator")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(AddCarImageDto carImageDto)
         {
             IResult result = BusinessRules.Run(CheckImageCount(carImageDto.CarId));
@@ -48,41 +97,14 @@ namespace Business.Concrete
             return new ErrorResult(Messages.PictureLimitExceeded);
         }
 
-        public IResult CheckImageCount(int id)
+        public IDataResult<string> UploadImage(IFormFile File)
         {
-            var result = _carImageDal.GetAll(p => p.CarId == id);
-            if (result.Count > 5)
-            {
-                return new ErrorResult(Messages.PictureLimitExceeded);
-            }
-            return new SuccessResult();
+            return _fileHelper.UploadFile(File);
         }
 
-        public IResult Delete(CarImage image)
-        {
-            _carImageDal.Delete(image);
-
-            return new SuccessResult(Messages.DeleteCarImage);
-        }
-
-        public IDataResult<List<CarImage>> GetAll()
-        {
-            var result = _carImageDal.GetAll();
-            return new SuccessDataResult<List<CarImage>>(result, Messages.GetAllCarImage);
-        }
-
-        public IDataResult<CarImage> GetById(int id)
-        {
-            var result = CheckIfCarImageNull(id);
-            return new SuccessDataResult<CarImage>(result.Data.FirstOrDefault(), Messages.GetCarImageById);
-        }
-
-        public IDataResult<List<CarImage>> GetImageByCarId(int id)
-        {
-            var result = CheckIfCarImageNull(id);
-            return new SuccessDataResult<List<CarImage>>(result.Data, Messages.GetCarImageByCarId);
-        }
-
+        [SecuredOperation("carImage.update,administrator")]
+        [ValidationAspect(typeof(BrandValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(UpdateCarImageDto carImageDto)
         {
             CarImage carImage = new CarImage
@@ -100,24 +122,13 @@ namespace Business.Concrete
             }
             return new ErrorResult(fileOperation.Message);
         }
-
-        public IDataResult<string> UploadImage(IFormFile File)
+        [SecuredOperation("carImage.delete,administrator")]
+        [CacheRemoveAspect("ICarImageService.Get")]
+        public IResult Delete(CarImage image)
         {
-            return _fileHelper.UploadFile(File);
-        }
+            _carImageDal.Delete(image);
 
-        private IDataResult<List<CarImage>> CheckIfCarImageNull(int id)
-        {
-
-            string path = @"\wwwroot\images\placeholder.png";
-            var result = _carImageDal.GetAll(p => p.CarId == id).Any();
-            if (!result)
-            {
-                List<CarImage> carImage = new List<CarImage>();
-                carImage.Add(new CarImage { CarId = id, ImagePath = path, Date = DateTime.Now });
-                return new SuccessDataResult<List<CarImage>>(carImage);
-            }
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == id));
+            return new SuccessResult(Messages.DeleteCarImage);
         }
     }
 }
