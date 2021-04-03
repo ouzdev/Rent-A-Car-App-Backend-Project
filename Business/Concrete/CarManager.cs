@@ -74,7 +74,7 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
-        [SecuredOperation("car.add,administrator")]
+        [SecuredOperation("car.delete,administrator")]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
