@@ -1,5 +1,9 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Result;
+using Core.Utilities.Security.JWT;
 using Entities.DTOs.UserDTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -14,7 +18,11 @@ namespace WebAPI.Controllers
         {
             _authService = authService;
         }
-
+        [AllowAnonymous]
+        [Consumes("application/json")]
+        [Produces("application/json", "text/plain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDataResult<AccessToken>))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(string))]
         [HttpPost("login")]
         public ActionResult Login(UserForLoginDto userForLoginDto)
         {
