@@ -15,6 +15,6 @@ namespace Business.Abstract
         IDataResult<List<CarImage>> GetAll();
         IDataResult<List<CarImage>> GetImageByCarId(int id);
         IResult CheckImageCount(int id);
-        IDataResult<string> UploadImage(IFormFile File);
+        IDataResult<string> UploadImage(List<IFormFile> File);
     }
 }

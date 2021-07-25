@@ -75,7 +75,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(AddCarImageDto carImageDto)
         {
-            IResult result = BusinessRules.Run(CheckImageCount(carImageDto.CarId));
+            IResult result = BusinessRules.Run(CheckImageCount(carImageDto.File.Count));
             if (result != null)
             {
                 return result;
@@ -97,7 +97,7 @@ namespace Business.Concrete
             return new ErrorResult(Messages.PictureLimitExceeded);
         }
 
-        public IDataResult<string> UploadImage(IFormFile File)
+        public IDataResult<string> UploadImage(List<IFormFile> File)
         {
             return _fileHelper.UploadFile(File);
         }
@@ -130,5 +130,7 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.DeleteCarImage);
         }
+
+       
     }
 }

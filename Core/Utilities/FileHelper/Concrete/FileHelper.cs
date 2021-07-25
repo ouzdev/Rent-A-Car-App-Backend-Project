@@ -3,6 +3,7 @@ using Core.Utilities.FileHelper.Abstract;
 using Core.Utilities.Result;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -11,12 +12,13 @@ namespace Core.Utilities.FileHelper.Concrete
     public class FileHelper : IFileHelper
     {
 
-        public IDataResult<string> UploadFile(IFormFile file)
+        public IDataResult<string> UploadFile(List<IFormFile> file)
         {
-            if (file == null || file.Length == 0)
-                return new ErrorDataResult<string>(Messages.FileNotFound);
-            var result = WriteFile(file);
-            return new SuccessDataResult<string>(result.Result, Messages.SuccessFileUpload);
+            //if (file == null || file.Length == 0)
+            //    return new ErrorDataResult<string>(Messages.FileNotFound);
+            //var result = WriteFile(file);
+            //return new SuccessDataResult<string>(result.Result, Messages.SuccessFileUpload);
+            return null;
         }
 
         public IDataResult<string> UploadFileUpdate(IFormFile file)
