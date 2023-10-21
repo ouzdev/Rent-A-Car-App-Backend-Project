@@ -30,8 +30,8 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             var result = controller.Login(new UserForLoginDto()) as BadRequestObjectResult;
 
             // Assert
-            Xunit.Assert.NotNull(result);
-            Xunit.Assert.Equal(400, result.StatusCode);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(400, result.StatusCode);
         }
 
         [TestMethod]
@@ -49,8 +49,8 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             var result = controller.Login(new UserForLoginDto()) as BadRequestObjectResult;
 
             // Assert
-            Xunit.Assert.NotNull(result);
-            Xunit.Assert.Equal(400, result.StatusCode);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(400, result.StatusCode);
         }
 
         [TestMethod]
@@ -68,8 +68,8 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             var result = controller.Login(new UserForLoginDto()) as OkObjectResult;
 
             // Assert
-            Xunit.Assert.NotNull(result);
-            Xunit.Assert.Equal(200, result.StatusCode);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(200, result.StatusCode);
             Xunit.Assert.IsType<AccessToken>(result.Value);
         }
         #endregion
@@ -88,8 +88,8 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             var result = controller.Register(new UserForRegisterDto()) as BadRequestObjectResult;
 
             // Assert
-            Xunit.Assert.NotNull(result);
-            Xunit.Assert.Equal(400, result.StatusCode);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(400, result.StatusCode);
         }
 
         [TestMethod]
@@ -109,8 +109,8 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             var result = controller.Register(new UserForRegisterDto()) as OkObjectResult;
 
             // Assert
-            Xunit.Assert.NotNull(result);
-            Xunit.Assert.Equal(200, result.StatusCode);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(200, result.StatusCode);
         }
 
         [TestMethod]
@@ -128,8 +128,8 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             var result = controller.Register(new UserForRegisterDto()) as BadRequestObjectResult;
 
             // Assert
-            Xunit.Assert.NotNull(result);
-            Xunit.Assert.Equal(400, result.StatusCode);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(400, result.StatusCode);
         }
         #endregion
 
