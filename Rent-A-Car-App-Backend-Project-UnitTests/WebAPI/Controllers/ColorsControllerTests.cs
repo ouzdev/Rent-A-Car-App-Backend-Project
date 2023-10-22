@@ -20,5 +20,21 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             Assert.IsNotNull(result);
            
         }
+                [TestMethod]
+        public void TestGetAll()
+        {
+            // Arrange
+            var mockColorService = new Mock<IColorService>();
+            mockColorService.Setup(x => x.GetAll()).Returns(new ColorListResponse(true, "Success", new List<Color>()));
+
+            var controller = new ColorsController(mockColorService.Object);
+
+            // Act
+            var result = controller.GetAll() as OkObjectResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
     }
 }
