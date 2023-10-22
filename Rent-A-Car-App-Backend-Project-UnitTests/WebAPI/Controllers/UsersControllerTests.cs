@@ -1,5 +1,5 @@
 // UsersControllerTests.cs
-// CPSC 5210 01 Software Testing and Deugging
+// CPSC 5210 01 Software Testing and Debugging
 // Purpose: Create Unit tests for Add,Update,Delete ,List,Get Claims ,Get user details by email functionality in UsersController.cs
 
 

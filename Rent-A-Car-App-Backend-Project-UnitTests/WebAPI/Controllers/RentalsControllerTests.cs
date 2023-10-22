@@ -1,5 +1,5 @@
 // RentalsControllerTests.cs
-// CPSC 5210   oftware Testing and Deugging
+// CPSC 5210   Software Testing and Debugging
 // Purpose: Create Unit tests for Add,Update,Delete,CarAvailale and List functionality in RentalsController.cs
 
 
