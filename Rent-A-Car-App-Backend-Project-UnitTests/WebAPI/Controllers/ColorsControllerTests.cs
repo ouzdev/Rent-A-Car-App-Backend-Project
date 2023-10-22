@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using WebAPI.Controllers;
 
-namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers;
+namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
 {
     [TestClass]
     public class ColorsControllerTests
