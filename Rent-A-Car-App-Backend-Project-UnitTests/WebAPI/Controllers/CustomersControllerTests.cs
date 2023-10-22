@@ -31,5 +31,22 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             Assert.AreEqual("Customer listed successfully.", result.Message);
             Assert.AreEqual(1, result.Data.UserId); 
         }
+        [TestMethod]
+        public void TestAdd()
+        {
+            // Arrange
+            var mockCustomer = new Mock<ICustomer>();
+            var customerManager = new CustomerManager(mockCustomer.Object);
+            var customer = new Customer { UserId = 1, CompanyName = "Company Sample" };
+
+            // Act
+            var result = customerManager.Add(customer);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+            Assert.AreEqual("Customer added successfully.", result.Message);
+        }
     }
+    
 }
