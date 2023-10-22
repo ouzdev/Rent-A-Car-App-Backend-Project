@@ -34,7 +34,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
            
         }
         [TestMethod]
-        public void TestGetAll()
+        public void Test_Get_All()
         {
             // Arrange
             var mockColorService = new Mock<IColorService>();
