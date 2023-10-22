@@ -1,3 +1,8 @@
+// RentalsControllerTests.cs
+// CPSC 5210   oftware Testing and Deugging
+// Purpose: Create Unit tests for Add,Update,Delete,CarAvailale and List functionality in RentalsController.cs
+
+
 using AutoMapper;
 using Business.Abstract;
 using Core.Utilities.Result;
@@ -27,7 +32,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
 
         #region Rental Add
         [TestMethod]
-        public void Adding_Rental_Data_Success()
+        public void Add_Rental_Data_Success_Ok()
         {
             // Arrange
             var mockUserRepository = new Mock<IRentalService>();
@@ -49,7 +54,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         }
 
         [TestMethod]
-        public void AddRental_Success()
+        public void Add_Rental_Data_Success_True()
         {
             var rental = new Rental
             {
@@ -68,7 +73,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         }
 
         [TestMethod]
-        public void Adding_Rental_Data_Failure()
+        public void Add_Rental_Data_Failure_Invalid_Message()
         {
             // Arrange
             var mockRentalService = new Mock<IRentalService>();
@@ -179,7 +184,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         #endregion
         #region Rental Get By ID
         [TestMethod]
-        public void Rental_GetById_Returns_OK()
+        public void Rental_GetById_Returns_Success_OK()
         {
             // Arrange
             int id = 0;
@@ -196,7 +201,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         #endregion
         #region Car Availale
         [TestMethod]
-        public void Rental_IsCarAvailable_Success()
+        public void Rental_IsCarAvailable_Returns_Success_OK()
         {
             // Arrange
             var carServiceMock = new Mock<IRentalService>();

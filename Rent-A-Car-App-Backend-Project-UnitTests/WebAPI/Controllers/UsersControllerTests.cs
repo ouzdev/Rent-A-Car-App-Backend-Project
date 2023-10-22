@@ -1,3 +1,8 @@
+// UsersControllerTests.cs
+// CPSC 5210 01 Software Testing and Deugging
+// Purpose: Create Unit tests for Add,Update,Delete ,List,Get Claims ,Get user details by email functionality in UsersController.cs
+
+
 using Moq;
 using Business.Abstract;
 using Core.Utilities.Result;
@@ -15,7 +20,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         private IUserService _userService;
 
         [TestMethod]
-        public void Add_ReturnsSuccessResult_ok()
+        public void Add_Returns_Success_Result_OK()
         {   // Arrange
             var mockUserService = new Mock<IUserService>();
             var mockResult = new SuccessResult("User added successfully");
@@ -45,7 +50,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
 
 
         [TestMethod]
-        public void Add_ReturnsSuccessResult()
+        public void Add_User_Success_Result_OK()
         {
             // Arrange
             var mockUserRepository = new Mock<IUserService>();
@@ -68,7 +73,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         }
 
         [TestMethod]
-        public void AddData()
+        public void Add_User_Data_Returns_True()
         {
             var User = new User
             {
@@ -86,7 +91,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         }
 
         [TestMethod]
-        public void UpdateData_ValidUser()
+        public void Update_Data_For_Valid_User_Success_OK()
         {
             
             var userServiceMock = new Mock<IUserService>();
@@ -109,7 +114,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         }
 
         [TestMethod]
-        public void DeleteData_ValidUser()
+        public void Delete_Data_Of_Valid_User_Success_OK()
         {
             
             var userServiceMock = new Mock<IUserService>();
@@ -134,7 +139,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         }
 
         [TestMethod]
-        public void GetAll_ReturnsAllUsers()
+        public void GetAll_Returns_All_Users_Success()
         {                          
                 var userServiceMock = new Mock<IUserService>();
                 var userList = new List<User> {
@@ -154,7 +159,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             
         }
         [TestMethod]
-        public void GetByMail_ExistingEmail_ReturnsUser()
+        public void GetByMail_Returns_User_If_Mail_Exists_Success()
         {
             // Arrange
             string existingEmail = "test1@gmail.com";
@@ -181,7 +186,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
 
 
         [TestMethod]
-        public void GetClaims_ReturnsClaims()
+        public void GetClaims_Returns_Claims_For_User_Success()
         {
             // Arrange
             var userClaimServiceMock = new Mock<IUserService>();
