@@ -3,6 +3,8 @@ using Business.Abstract;
 using Core.Utilities.Result;
 using Core.Entities.Concrete;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using Microsoft.AspNetCore.Mvc;
+using WebAPI.Controllers;
 
 namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
 {
@@ -11,6 +13,36 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
     public class UserServiceTests
     {
         private IUserService _userService;
+
+        [TestMethod]
+        public void Add_ReturnsSuccessResult_ok()
+        {   // Arrange
+            var mockUserService = new Mock<IUserService>();
+            var mockResult = new SuccessResult("User added successfully");
+            mockUserService.Setup(ur => ur.Add(It.IsAny<User>())).Returns(mockResult);
+
+
+
+            var userController = new UsersController(mockUserService.Object);
+            var validUser = new User { FirstName = "Anusha Panta", LastName = "Panta" };
+
+
+
+            // Act
+            var actionResult = userController.Add(validUser);
+            var okResult = actionResult as OkObjectResult;
+
+
+
+            // Assert
+            Assert.IsNotNull(okResult);
+            var successResult = okResult.Value as SuccessResult;
+            Assert.IsNotNull(successResult);
+            Assert.IsTrue(successResult.Success);
+            Assert.AreEqual("User added successfully", successResult.Message);
+        }
+
+
 
         [TestMethod]
         public void Add_ReturnsSuccessResult()
