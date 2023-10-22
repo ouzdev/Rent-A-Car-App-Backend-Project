@@ -28,6 +28,7 @@ using WebAPI.Controllers;
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(400, result.StatusCode);
            
         }
                 [TestMethod]
@@ -44,6 +45,7 @@ using WebAPI.Controllers;
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(400, result.StatusCode);
         }
         
 
