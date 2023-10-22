@@ -31,7 +31,7 @@ using WebAPI.Controllers;
             Assert.AreEqual(400, result.StatusCode);
            
         }
-                [TestMethod]
+        [TestMethod]
         public void TestGetAll()
         {
             // Arrange
