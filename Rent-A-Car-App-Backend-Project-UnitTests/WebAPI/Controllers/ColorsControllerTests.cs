@@ -1,3 +1,7 @@
+// AuthControllerTests.cs
+// CPSC 5210 01
+// Purpose: Create Unit tests for Login & Regsiter functionality in ColorsController.cs
+
 using System;
 using Business.Abstract;
 using Entities.Concrete;
