@@ -63,6 +63,22 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             Assert.IsTrue(result.Success);
             Assert.AreEqual("Customer update is successful.", result.Message);
         }
+        [TestMethod]
+        public void TestDelete()
+        {
+            // Arrange
+            var mockCustomer = new Mock<ICustomer>();
+            var customerManager = new CustomerManager(mockCustomer.Object);
+            var customer = new Customer { UserId = 1, CompanyName = "Company Sample" };
+
+            // Act
+            var result = customerManager.Delete(customer);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+            Assert.AreEqual("Customer delete is a successful.", result.Message);
+        }
     }
     
 }
