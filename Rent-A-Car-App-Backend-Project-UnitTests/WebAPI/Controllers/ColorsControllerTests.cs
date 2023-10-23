@@ -1,4 +1,4 @@
-// AuthControllerTests.cs
+// ColorsControllerTests.cs
 // CPSC 5210 01
 // Purpose: Create Unit tests for Login & Regsiter functionality in ColorsController.cs
 
@@ -19,12 +19,8 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
     public class ColorsControllerTests
     {
        
-       
         private readonly Mock<IColorService> _ColorServiceMock;
-        
         private readonly ColorsController _controller;
-
-
 
         public ColorsControllerTests()
         {
@@ -32,6 +28,9 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             
             _controller = new ColorsController(_ColorServiceMock.Object);
         }
+        
+        #region GetID
+            
         [TestMethod]
         public void When_Color_Exists_GetById_Returns_OK()
         {
@@ -64,26 +63,17 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
 
- 
-
-
+        #endregion
 
         #region GetAll
 
         [TestMethod]
-
         public void When_Colors_Exist_GetAll_Returns_OK()
-
         {
-
             // Arrange
-
             var Colors = new List<Color>
-
             {
-
                 new Color { Id = 0, Name = "B0" },
-
                 new Color { Id = 1, Name = "B1" },
 
             };
@@ -91,37 +81,24 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             var serviceResult = new SuccessDataResult<List<Color>>(Colors);
 
             _ColorServiceMock.Setup(service => service.GetAll()).Returns(serviceResult);
-
-
-
+            
             // Act
-
             IActionResult result = _controller.GetAll();
 
-
-
             // Assert
-
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
         }
 
-
-
         [TestMethod]
-
         public void When_Colors_Do_Not_Exist_GetAll_Returns_BadRequest()
 
         {
 
             // Arrange
-
             var Colors = new List<Color>
-
             {
-
                 new Color { Id = 0, Name = "B0" },
-
                 new Color { Id = 1, Name = "B1" },
 
             };
@@ -129,124 +106,76 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             var serviceResult = new ErrorDataResult<List<Color>>(Colors);
 
             _ColorServiceMock.Setup(service => service.GetAll()).Returns(serviceResult);
-
-
-
+            
             // Act
-
             IActionResult result = _controller.GetAll();
 
-
-
             // Assert
-
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
 
         }
 
         #endregion
         
-
         #region Add
 
         [TestMethod]
-
         public void Adding_Mapped_Color_Succesfully_Returns_OK()
 
         {
 
             // Arrange
-
             var ColorToAdd = new Color{ Name = "B0" };
-
-            //var mappedColor = new Color();
-
             var serviceResult = new SuccessDataResult<Color>(ColorToAdd);
 
             _ColorServiceMock.Setup(service => service.Add(ColorToAdd)).Returns(serviceResult);
 
-
-
             // Act
-
             IActionResult result = _controller.Add(ColorToAdd);
 
-
-
             // Assert
-
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
         }
 
-
-
-
-
         [TestMethod]
-
         public void Adding_Mapped_Color_Unsuccesfully_Returns_BadRequest()
 
         {
 
             // Arrange
-
-            var ColorToAdd = new Color { Name = "B0" };
-
-            //var mappedColor = new Color();
-
-           
+            var ColorToAdd = new Color { Name = "B0" };  
 
             var serviceResult = new ErrorDataResult<Color>(ColorToAdd);
 
             _ColorServiceMock.Setup(service => service.Add(ColorToAdd)).Returns(serviceResult);
 
-
-
             // Act
-
             IActionResult result = _controller.Add(ColorToAdd);
 
-
-
             // Assert
-
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
 
         }
-
+        
         #endregion
-
-
 
         #region Update
 
         [TestMethod]
-
         public void Updating_Color_Succesfully_Returns_OK()
 
         {
-
             // Arrange
-
             var ColorToUpdate = new Color();
-
             var serviceResult = new SuccessResult();
 
-
-
             _ColorServiceMock.Setup(service => service.Update(ColorToUpdate)).Returns(serviceResult);
-
-
-
+            
             // Act
-
             IActionResult result = _controller.Update(ColorToUpdate);
-
-
-
+            
             // Assert
-
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
         }
@@ -254,7 +183,6 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
 
 
         [TestMethod]
-
         public void Updating_Color_Unsuccesfully_Returns_BadRequest()
 
         {
@@ -262,91 +190,59 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             // Arrange
 
             var ColorToUpdate = new Color();
-
             var serviceResult = new ErrorResult();
-
-
 
             _ColorServiceMock.Setup(service => service.Update(ColorToUpdate)).Returns(serviceResult);
 
 
-
             // Act
-
             IActionResult result = _controller.Update(ColorToUpdate);
 
-
-
             // Assert
-
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
 
         }
 
         #endregion
 
-
-
         #region Delete
 
         [TestMethod]
-
         public void Deleting_Color_Succesfully_Returns_OK()
 
         {
 
             // Arrange
-
             var ColorToDelete = new Color();
-
             var serviceResult = new SuccessResult();
-
-
 
             _ColorServiceMock.Setup(service => service.Delete(ColorToDelete)).Returns(serviceResult);
 
-
-
             // Act
-
             IActionResult result = _controller.Delete(ColorToDelete);
 
-
-
             // Assert
-
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
         }
 
-
-
         [TestMethod]
-
         public void Deleteing_Color_Unsuccesfully_Returns_BadRequest()
 
         {
 
             // Arrange
-
             var ColorToDelete = new Color();
-
             var serviceResult = new ErrorResult();
-
-
-
+            
             _ColorServiceMock.Setup(service => service.Delete(ColorToDelete)).Returns(serviceResult);
 
 
 
             // Act
-
             IActionResult result = _controller.Delete(ColorToDelete);
 
-
-
             // Assert
-
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
 
         }
