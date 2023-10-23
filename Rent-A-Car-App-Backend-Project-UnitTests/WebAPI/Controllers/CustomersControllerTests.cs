@@ -45,7 +45,23 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Success);
-            Assert.AreEqual("Customer added successfully.", result.Message);
+            Assert.AreEqual("Customer add is successful.", result.Message);
+        }
+        [TestMethod]
+        public void TestUpdate()
+        {
+            // Arrange
+            var mockCustomer = new Mock<ICustomer>();
+            var customerManager = new CustomerManager(mockCustomer.Object);
+            var customer = new Customer { UserId = 1, CompanyName = "Updated Sample Company" };
+
+            // Act
+            var result = customerManager.Update(customer);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+            Assert.AreEqual("Customer update is successful.", result.Message);
         }
     }
     
