@@ -145,6 +145,212 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         }
 
         #endregion
+        
 
+        #region Add
+
+        [TestMethod]
+
+        public void Adding_Mapped_Color_Succesfully_Returns_OK()
+
+        {
+
+            // Arrange
+
+            var ColorToAdd = new Color{ Name = "B0" };
+
+            //var mappedColor = new Color();
+
+            var serviceResult = new SuccessDataResult<Color>(ColorToAdd);
+
+            _ColorServiceMock.Setup(service => service.Add(ColorToAdd)).Returns(serviceResult);
+
+
+
+            // Act
+
+            IActionResult result = _controller.Add(ColorToAdd);
+
+
+
+            // Assert
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+
+
+
+
+        [TestMethod]
+
+        public void Adding_Mapped_Color_Unsuccesfully_Returns_BadRequest()
+
+        {
+
+            // Arrange
+
+            var ColorToAdd = new Color { Name = "B0" };
+
+            //var mappedColor = new Color();
+
+           
+
+            var serviceResult = new ErrorDataResult<Color>(ColorToAdd);
+
+            _ColorServiceMock.Setup(service => service.Add(ColorToAdd)).Returns(serviceResult);
+
+
+
+            // Act
+
+            IActionResult result = _controller.Add(ColorToAdd);
+
+
+
+            // Assert
+
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+
+        }
+
+        #endregion
+
+
+
+        #region Update
+
+        [TestMethod]
+
+        public void Updating_Color_Succesfully_Returns_OK()
+
+        {
+
+            // Arrange
+
+            var ColorToUpdate = new Color();
+
+            var serviceResult = new SuccessResult();
+
+
+
+            _ColorServiceMock.Setup(service => service.Update(ColorToUpdate)).Returns(serviceResult);
+
+
+
+            // Act
+
+            IActionResult result = _controller.Update(ColorToUpdate);
+
+
+
+            // Assert
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+
+
+        [TestMethod]
+
+        public void Updating_Color_Unsuccesfully_Returns_BadRequest()
+
+        {
+
+            // Arrange
+
+            var ColorToUpdate = new Color();
+
+            var serviceResult = new ErrorResult();
+
+
+
+            _ColorServiceMock.Setup(service => service.Update(ColorToUpdate)).Returns(serviceResult);
+
+
+
+            // Act
+
+            IActionResult result = _controller.Update(ColorToUpdate);
+
+
+
+            // Assert
+
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+
+        }
+
+        #endregion
+
+
+
+        #region Delete
+
+        [TestMethod]
+
+        public void Deleting_Color_Succesfully_Returns_OK()
+
+        {
+
+            // Arrange
+
+            var ColorToDelete = new Color();
+
+            var serviceResult = new SuccessResult();
+
+
+
+            _ColorServiceMock.Setup(service => service.Delete(ColorToDelete)).Returns(serviceResult);
+
+
+
+            // Act
+
+            IActionResult result = _controller.Delete(ColorToDelete);
+
+
+
+            // Assert
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+
+
+        [TestMethod]
+
+        public void Deleteing_Color_Unsuccesfully_Returns_BadRequest()
+
+        {
+
+            // Arrange
+
+            var ColorToDelete = new Color();
+
+            var serviceResult = new ErrorResult();
+
+
+
+            _ColorServiceMock.Setup(service => service.Delete(ColorToDelete)).Returns(serviceResult);
+
+
+
+            // Act
+
+            IActionResult result = _controller.Delete(ColorToDelete);
+
+
+
+            // Assert
+
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+
+        }
+
+        #endregion
     }
 }
