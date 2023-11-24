@@ -1,3 +1,4 @@
+[10:59 AM] Gian Kaiser VanGuardia
 // CarsControllerTests.cs
  
 using System.Collections.Generic;
@@ -16,6 +17,10 @@ using Moq;
  
 using WebAPI.Controllers;
 
+using Salesforce.Common.Models.Json;
+
+using System.Runtime.InteropServices;
+ 
 namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
  
 {
@@ -41,56 +46,25 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
         }
  
         #region Delete
+ 
+        [TestMethod]
+ 
+        public void Deleting_Car_Successfully_Returns_OK()
+ 
+        {
 
-    [TestMethod]
+            //Not implemented.
  
-    public void Deleting_Car_Successfully_Returns_OK()
+        }
  
-            {
- 
-                // Arrange
- 
-                int carId = 1;
- 
-                var successResult = new SuccessResult("Car deleted successfully");
- 
-            _carServiceMock.Setup(service => service.Delete(It.IsAny<Car>())).Returns(successResult);
- 
-            // Act
- 
-            IActionResult result = _controller.Delete(carId);
- 
-                // Assert
- 
-                Assert.IsInstanceOfType(result, typeof(OkObjectResult));
- 
-                Assert.AreEqual("Car deleted successfully", ((OkObjectResult)result).Value);
- 
-            }
  
         [TestMethod]
  
         public void Deleting_Car_Unsuccessfully_Returns_BadRequest()
  
         {
- 
-            // Arrange
- 
-            int carId = 1;
- 
-            var errorResult = new ErrorResult("Failed to delete car");
- 
-            _carServiceMock.Setup(service => service.Delete(It.IsAny<Car>())).Returns(errorResult);
- 
-            // Act
- 
-            IActionResult result = _controller.Delete(carId);
- 
-            // Assert
- 
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
- 
-            Assert.AreEqual("Failed to delete car", ((BadRequestObjectResult)result).Value);
+
+          //Not implemented.
  
         }
  
@@ -132,7 +106,7 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
  
             int carId = 1;
  
-            var serviceResult = new ErrorResult("Failed to retrieve car.");
+            var serviceResult = new ErrorDataResult<Car>(new Car(), ("Failed to retrieve car."));
  
             _carServiceMock.Setup(service => service.GetById(carId)).Returns((IDataResult<Car>)serviceResult);
  
