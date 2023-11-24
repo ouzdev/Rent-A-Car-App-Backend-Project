@@ -1,4 +1,3 @@
-[10:59 AM] Gian Kaiser VanGuardia
 // CarsControllerTests.cs
  
 using System.Collections.Generic;
