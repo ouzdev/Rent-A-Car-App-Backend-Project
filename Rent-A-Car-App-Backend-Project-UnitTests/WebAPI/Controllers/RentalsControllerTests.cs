@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPI.Controllers;
 using Moq;
 using Entities.Concrete;
+using Entities.DTOs.RentalDTOs;
+using Microsoft.AspNetCore.Routing;
 
 namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
 {
@@ -198,5 +200,56 @@ namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI.Controllers
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
         #endregion
+        #region Get Rental List
+        [TestMethod]
+        public void GetListRentalDetails_ReturnsOk_Success()
+        {
+            // Arrange
+            var rentalDetails = new List<GetRentalDetailDTO>
+        {
+            new GetRentalDetailDTO
+            {
+                Id = 1,
+                CarName = "Car",
+                CustomerName = "Name",
+                RentDate = DateTime.Now,
+                ReturnDate = DateTime.Now.AddDays(3)
+            }
+        };
+            _rentalServiceMock.Setup(rs => rs.GetListRentalDetails())
+                .Returns(new DataResult<List<GetRentalDetailDTO>>(rentalDetails, true, "Rental details are retrieved Successfully."));
+
+            // Act
+            IActionResult detailresult = _controller.GetListRentalDetails();
+
+            // Assert
+            Assert.IsInstanceOfType<OkObjectResult>(detailresult);
+            var okResult = (OkObjectResult)detailresult;
+
+            // Assert
+            Assert.AreEqual(200, okResult.StatusCode);
+            
+        }
+
+        [TestMethod]
+        public void GetListRentalDetails_Returns_BadRequest_Fails()
+        {
+            // Arrange
+            _rentalServiceMock.Setup(rs => rs.GetListRentalDetails())
+                .Returns(new DataResult<List<GetRentalDetailDTO>>(null, false, "Failed"));
+
+            // Act
+            IActionResult detailresult = _controller.GetListRentalDetails();
+
+            // Assert
+            Assert.IsInstanceOfType<BadRequestObjectResult>(detailresult);
+            var badRequestResult = (BadRequestObjectResult)detailresult;
+
+            // Assert
+            Assert.AreEqual(400, badRequestResult.StatusCode);  
+        }
+
+        #endregion
+
     }
 }
