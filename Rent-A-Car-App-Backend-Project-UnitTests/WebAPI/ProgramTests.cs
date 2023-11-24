@@ -1,10 +1,7 @@
-﻿using Moq;
+﻿// ProgramTests.cs
+// CPSC 5210 01 Software Testing and Debugging
+// Purpose: Create Unit tests for building host in Program.cs
 using WebAPI;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Rent_A_Car_App_Backend_Project_UnitTests.WebAPI
 {
